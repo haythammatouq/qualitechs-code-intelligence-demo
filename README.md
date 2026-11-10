@@ -23,3 +23,13 @@ GitHub monitoring: add this repository URL and choose `regression-demo`. A monit
 Upload comparison: use `examples/before.py` as the old file and `examples/after.py` as the new file. These are intentional versions of the same synthetic component. Compare identical files as well to verify the unchanged outcome.
 
 Expected review: removed authorization should produce a critical review signal and P0 suggested tests; the pricing change should produce financial regression cases. Suggested test cases are not runtime evidence. The unittest output provides actual measured pass/fail results.
+
+## Verified results
+
+- `baseline`:12 tests pass.
+- `main`:15 tests pass, including a small receipt-formatting feature.
+- `regression-demo`:6 tests intentionally fail and6 pass. Four failures catch incorrect discount arithmetic; two catch missing authorization. No real account is affected.
+
+Public comparison: https://github.com/haythammatouq/qualitechs-code-intelligence-demo/compare/baseline...regression-demo
+
+For upload testing, download `examples/before.py` and `examples/after.py` from `main`. The latter is an intentionally incorrect fixture, not the implementation used by the passing main test suite.

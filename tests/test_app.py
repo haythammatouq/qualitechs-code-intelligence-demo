@@ -1,6 +1,6 @@
 import unittest
 from decimal import Decimal
-from app import checkout_total,delete_account
+from app import checkout_total,delete_account,receipt_line
 
 class CheckoutTests(unittest.TestCase):
     def test_no_discount(self):self.assertEqual(checkout_total(200),Decimal("200.00"))
@@ -28,5 +28,11 @@ class AuthorizationTests(unittest.TestCase):
         self.assertEqual(result["deleted"],"demo-1");self.assertNotIn("demo-1",self.accounts)
     def test_missing_target_is_explicit(self):
         with self.assertRaises(KeyError):delete_account({"role":"admin"},"missing",self.accounts)
+
+class ReceiptTests(unittest.TestCase):
+    def test_receipt_line(self):self.assertEqual(receipt_line("Demo item",200,10),"Demo item: 180.00")
+    def test_label_trim(self):self.assertEqual(receipt_line(" Demo ",10),"Demo: 10.00")
+    def test_empty_label(self):
+        with self.assertRaises(ValueError):receipt_line("  ",10)
 
 if __name__=="__main__":unittest.main()

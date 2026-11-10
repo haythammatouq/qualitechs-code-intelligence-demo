@@ -14,3 +14,8 @@ def delete_account(current_user, target_id, accounts):
     if target_id not in accounts:raise KeyError(target_id)
     removed=accounts.pop(target_id)
     return {"deleted":target_id,"name":removed["name"]}
+
+
+def receipt_line(label, subtotal, discount_percent=0):
+    if not isinstance(label,str) or not label.strip():raise ValueError("Item label is required")
+    return f"{label.strip()}: {checkout_total(subtotal,discount_percent):.2f}"
